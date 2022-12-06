@@ -48,7 +48,7 @@ else{
         </TableHead>
         <TableBody>
           {certificate.map((row) => (
-            <TableRow key={row.course}>
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>

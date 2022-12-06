@@ -80,7 +80,7 @@ function Capestone(props){
     const [card,setCard]= useState({
         name:"sowmiya",
         title:"stackoverflowclone",
-        feedback:"came poda seyoon loose ramraj looseee",
+        feedback:"good",
         mark:"9",
             });
      

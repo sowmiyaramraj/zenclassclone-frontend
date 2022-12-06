@@ -5,7 +5,9 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import jwt from "jsonwebtoken";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const bull = (
   <Box
@@ -16,6 +18,7 @@ const bull = (
   </Box>
 );
 function Class(){
+  const navigate=useNavigate();
   const [classdata,setClassdata]=useState([]);
   
 
@@ -47,7 +50,7 @@ function Class(){
           {/* REgular class */}
           {classdata.map((row) => (
 
-          <div>
+          <div key={row.id}>
             <Button style={{ background:"rgb(129, 43, 129)",color:"white"}}> {row.day} </Button> 
           </div> 
           ))}
