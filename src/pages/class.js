@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -16,20 +16,46 @@ const bull = (
   </Box>
 );
 function Class(){
+  const [classdata,setClassdata]=useState([]);
+  
+
+  useEffect(()=>{
+           async function getData()
+           {
+            const decodedtoken=jwt.decode(localStorage.getItem("token"));
+            if(decodedtoken.exp * 1000 < Date.now())
+            {
+              navigate("/signin");
+    
+            }
+    else{
+               const responce= await axios.get("http://localhost:3001/class/get",{
+                headers:{
+                  accesstoken: localStorage.getItem("token"),
+                },
+               });
+               console.log(responce.data);           
+               setClassdata(responce.data);           
+           }
+              }
+           getData();
+       },[]);
  
     return(
         <div>
 
           {/* REgular class */}
+          {classdata.map((row) => (
 
           <div>
-            <Button style={{ background:"rgb(129, 43, 129)",color:"white"}}> 1 </Button> 
+            <Button style={{ background:"rgb(129, 43, 129)",color:"white"}}> {row.day} </Button> 
           </div> 
+          ))}
           <hr/>
 
           {/* Additional session */}
 
-          <div>
+          <div> 
           <Card sx={{ minWidth: 275 }}>
       <CardContent>
        

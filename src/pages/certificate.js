@@ -24,13 +24,13 @@ function Certificate(){
 
         }
 else{
-           const response= await axios.get("http://localhost:3001/certificate/get",{
+           const responce= await axios.get("http://localhost:3001/certificate/get",{
             headers:{
               accesstoken: localStorage.getItem("token"),
             },
            });
-           console.log(response.data);           
-           setCertificate(response.data);           
+           console.log(responce.data);           
+           setCertificate(responce.data);           
        }
           }
        getData();
