@@ -14,6 +14,8 @@ import Signin from "./signin";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import axios from "axios";
+import VerticalTabs from "../pages/tab"
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,8 +27,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function Signup(){
-    const navigate=useNavigate();
-   const validateform=(formdata)=>{
+  const [userStateData,setUserStateData]=useState([]);
+  const navigate=useNavigate();
+  const validateform=(formdata)=>{
     var errors={};
     if(formdata.firstname==='') errors.firstname=("firstname is required"); 
     if(formdata.lastname==='') errors.lastname=("lastname is required"); 
@@ -37,10 +40,26 @@ function Signup(){
     if(formdata.gender==='') errors.gender=("gender is required");
     return errors;
    };
-   const handleSubmit=(formdata, { resetForm })=>{
+   const handleSubmit=async(formdata, { resetForm })=>{
     console.log(formdata);
-    resetForm();
-    navigate("/");
+
+    // signup axios call
+
+    const response= await axios.post("http://localhost:3001/register/signup",
+       
+        {
+         fristname: formdata.fristname,
+         lastname: formdata.lastname,
+         email: formdata.email,
+         password: formdata.password,
+         confirmpassword: formdata.confirmpassword,
+         gender: formdata.gender,
+         mobilenumber: formdata.mobilenumber,
+        });
+        setUserStateData([...userStateData,response.data]);
+        navigate("/tab");
+        resetForm();
+       
 };
 const handlesubmit1=()=>{
   navigate("/Signin")
@@ -48,9 +67,9 @@ const handlesubmit1=()=>{
     return(
       <div>
       <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={4}>
-          <Item> <img src={zenlogo}/></Item>
+          <Item  padding="100px"> <img src={zenlogo}/></Item>
         </Grid>
         <Grid item xs={8}>
           <Item> 

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,10 +7,35 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-
-
+import axios from "axios";
+import jwt from "jsonwebtoken";
+import {useNavigate} from "react-router-dom";
+  
 function Certificate(){
+  const navigate=useNavigate();
+  const[certificate,setCertificate]=useState([]);
+  useEffect(()=>{
+       async function getData()
+       {
+        const decodedtoken=jwt.decode(localStorage.getItem("token"));
+        if(decodedtoken.exp * 1000 < Date.now())
+        {
+          navigate("/signin");
+
+        }
+else{
+           const response= await axios.get("http://localhost:3001/certificate/get",{
+            headers:{
+              accesstoken: localStorage.getItem("token"),
+            },
+           });
+           console.log(response.data);           
+           setCertificate(response.data);           
+       }
+          }
+       getData();
+   },[]);
+  
     return(
         <div style={{marginLeft: '100px',marginRight:"100px"}}>
            <TableContainer component={Paper}>
@@ -22,14 +47,14 @@ function Certificate(){
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {rows.map((row) => (
-            <TableRow key={row.name}>
+          {certificate.map((row) => (
+            <TableRow key={row.course}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.syllabus}</TableCell>
               </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
