@@ -69,9 +69,17 @@ function Task(props){
    useEffect(()=>{
     async function getData()
     {
+     const decodedtoken=jwt.decode(localStorage.getItem("token"));
+     if(decodedtoken.exp * 1000 < Date.now())
+     {
+       navigate("/signin");
+
+     }
+else{
         const response= await axios.get("http://localhost:3001/task/get");
         setTask(response.data);    
     }
+  }
     getData();
 },[]);
 

@@ -11,11 +11,19 @@ import axios from "axios";
 function Leadership(){
   const [leadership,setLeadership]=useState([]);
   useEffect(()=>{
-    async function getData()
-    {
+  async function getData()
+       {
+        const decodedtoken=jwt.decode(localStorage.getItem("token"));
+        if(decodedtoken.exp * 1000 < Date.now())
+        {
+          navigate("/signin");
+
+        }
+else{
         const response= await axios.get("http://localhost:3001/user/get");
         setLeadership(response.data);    
     }
+  }
     getData();
 },[]);
     return(
