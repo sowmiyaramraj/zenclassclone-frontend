@@ -1,46 +1,109 @@
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import { Formik} from "formik";
+
 function Requirement(){
-    const [formdata,setFormdata]=useState({
-        git:"",
-        resume:"",
-        portfolio:"" 
-    });
-    const handlesubmit=async(e)=>{
-        e.preventDefault();
-    }
+    const [formdata,setFormdata]=useState([]);
+    const validateform=(formdata)=>{
+        var errors={};
+        if(formdata.name==='') errors.name=("name is required"); 
+        if(formdata.git==='') errors.git=("github Url is required"); 
+        if(formdata.portfolio==='') errors.portfolio=("portfolio URL is required"); 
+        if(formdata.resume==='') errors.resume=("resume URL is required"); 
+       return errors;
+       };
+
+       const handleSubmit=async(formdata, { resetForm })=>{
+        console.log(formdata);
+        resetForm();
+       };
     return(
         <div>
              <div style={{width:"200px",height:"50px",background:"purple"}} className="header">
              <Typography style={{color:"white", fontSize:"27px"}}>Requirement</Typography>
               </div>
-              <form onSubmit={handlesubmit}>
-              <span>Github URL</span> <br/>                
-                <TextField style={{width:"200px",height:"50px"}}
-                 id="outlined-basic"  
-                 variant="outlined"
-                 name="git" 
-                 value={formdata.git}  
-                 onChange={(e)=>setFormdata({...formdata,git:e.target.value})}/><br/>
-               <br/><br/>  
-                <span>Portfolio URL</span> <br/>                  
-                <TextField style={{width:"200px",height:"50px"}}
-                 id="outlined-basic"  
-                 variant="outlined"
-                 name="portfolio" 
-                 value={formdata.portfolio}  
-                 onChange={(e)=>setFormdata({...formdata,portfolio:e.target.value})}/><br/><br/>
-                 <span>Resume URL</span> <br/>                 
-                 <TextField style={{width:"200px",height:"50px"}}
-                 id="outlined-basic"  
-                 variant="outlined"
-                 name="resume" 
-                 value={formdata.resume}  
-                 onChange={(e)=>setFormdata({...formdata,resume:e.target.value})}/><br/><br/>
-                      <Button type="submit"> Submit</Button>
-                </form>
+              <Formik
+       initialValues={{
+        name:"",
+        git:"",
+        portfolio:"",
+        resume:"",
+        }}
+       validate={(formdata)=>validateform(formdata)}
+       onSubmit={handleSubmit}
+     >
+         {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         handleSubmit,
+         handleReset,
+         isSubmitting,
+       }) =>(
+       
+       <Box
+       component="form"
+       sx={{
+         '& > :not(style)': { m: 1, width: '25ch' },
+       }}
+       noValidate
+       autoComplete="off"
+       onSubmit={handleSubmit}
+       >
+        {/* name */}
+        <TextField id="name" 
+        style={{width:"500px"}}
+       label="Your Name" 
+       variant="outlined"
+       name="name" 
+       value={values.name}     
+        onChange={handleChange}
+        onBlur={handleBlur} /><br/>
+        <span style={{color:"red"}}>{touched.name && errors.name}</span><br/>
+        {/* Github */}
+       
+       <TextField id="git" 
+        style={{width:"500px"}}
+       label="Github URL" 
+       variant="outlined"
+       name="git" 
+       value={values.git}     
+        onChange={handleChange}
+        onBlur={handleBlur} /><br/>
+        <span style={{color:"red"}}>{touched.git && errors.git}</span><br/>
+       {/* Portfolio */}
+       <TextField id="portfolio" 
+       style={{width:"500px"}}
+       label="Portfolio URL" 
+       name="portfolio" 
+       variant="outlined"
+       value={values.portfolio}    
+       onChange={handleChange}
+       onBlur={handleBlur}   /><br/>
+        <span style={{color:"red"}}>{touched.portfolio && errors.portfolio}</span><br/>
+               {/* Resume */}
+       <TextField 
+      style={{width:"500px"}}
+       id="resume" 
+       label="Resume Url" 
+        name="resume" 
+       value={values.resume}
+       type="resume"
+       variant="outlined"       
+       onChange={handleChange}
+       onBlur={handleBlur}/><br/>
+        <span style={{color:"red"}}>{touched.resume && errors.resume}</span><br/>
+      
+    
+     <Button variant="contained" type="submit" disabled={isSubmitting} >Submit</Button>
+       </Box>
+       )}
+       </Formik>
         </div>
     );
 }
