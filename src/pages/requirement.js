@@ -4,9 +4,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Formik} from "formik";
-
+import axios from "axios";
 function Requirement(){
-    const [formdata,setFormdata]=useState([]);
+    const [userStateData,setUserStateData]=useState([]);
     const validateform=(formdata)=>{
         var errors={};
         if(formdata.name==='') errors.name=("name is required"); 
@@ -18,6 +18,16 @@ function Requirement(){
 
        const handleSubmit=async(formdata, { resetForm })=>{
         console.log(formdata);
+
+        const response= await axios.post("http://localhost:3001/requirement/create",
+       
+        {
+         name: formdata.name,
+         githuburl: formdata.git,
+         portfoliourl: formdata.portfolio,
+         resumeurl: formdata.resume,
+        });
+        setUserStateData([...userStateData,response.data]);
         resetForm();
        };
     return(
