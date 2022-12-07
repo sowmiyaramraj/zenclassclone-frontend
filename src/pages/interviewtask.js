@@ -73,8 +73,11 @@ function Interviewtask(props){
 
        }
 else{
-          const response= await axios.get("http://localhost:3001/task/get");
-          setInterviewtask(response.data);    
+  const response= await axios.get("http://localhost:3001/task/get",{
+    headers:{
+      accesstoken : localStorage.getItem("token"),
+    },
+  });          setInterviewtask(response.data);    
       }
     }
       getData();

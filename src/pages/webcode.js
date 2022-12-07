@@ -73,8 +73,11 @@ function Webcode(props){
 
        }
 else{
-          const response= await axios.get("http://localhost:3001/task/get");
-          setWebcode(response.data);    
+  const response= await axios.get("http://localhost:3001/task/get",{
+    headers:{
+      accesstoken : localStorage.getItem("token"),
+    },
+  });          setWebcode(response.data);    
       }
     }
       getData();

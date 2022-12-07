@@ -76,7 +76,11 @@ function Task(props){
 
      }
 else{
-        const response= await axios.get("http://localhost:3001/task/get");
+        const response= await axios.get("http://localhost:3001/task/get",{
+          headers:{
+            accesstoken : localStorage.getItem("token"),
+          },
+        });
         setTask(response.data);    
     }
   }

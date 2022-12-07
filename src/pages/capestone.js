@@ -66,6 +66,7 @@ const Div = styled('div')(({ theme }) => ({
   }));
 
 function Capestone(props){
+  const navigate=useNavigate();
   const { window } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -86,7 +87,11 @@ function Capestone(props){
 
         }
 else{
-          const response= await axios.get("http://localhost:3001/task/get");
+  const response= await axios.get("http://localhost:3001/task/get",{
+    headers:{
+      accesstoken : localStorage.getItem("token"),
+    },
+  });
           setCapestone(response.data);    
       }
     }

@@ -20,8 +20,11 @@ function Leadership(){
 
         }
 else{
-        const response= await axios.get("http://localhost:3001/user/get");
-        setLeadership(response.data);    
+  const response= await axios.get("http://localhost:3001/user/get",{
+    headers:{
+      accesstoken : localStorage.getItem("token"),
+    },
+  });        setLeadership(response.data);    
     }
   }
     getData();

@@ -22,8 +22,12 @@ function Syllabus(){
 
      }
 else{
-            const response= await axios.get("http://localhost:3001/syllabus/get");
-            setSyllabus(response.data);           
+  const response= await axios.get("http://localhost:3001/syllabus/get",{
+    headers:{
+      accesstoken : localStorage.getItem("token"),
+    },
+  });           
+   setSyllabus(response.data);           
             
         }
       }

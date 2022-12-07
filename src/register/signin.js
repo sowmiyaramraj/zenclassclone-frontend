@@ -11,20 +11,21 @@ function Signin(){
         email:"",
         password:"", 
     });
-    const handlesubmit=async(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
-        const responce=await axios.post("http://localhost:3001/register/signin",{...formdata});
-        if(responce.data){
-            localStorage.setItem("token",responce.data);
+        const response=await axios.post("http://localhost:3001/register/signin",{...formdata});
+        if(response.data){
+            localStorage.setItem("token",response.data);
+              navigate("/tab");
         }
-        console.log(responce);
-        navigate("/tab");
+        console.log(response);
+      
 
-    }
+    };
     return(
         <div>
             <h1>Signin</h1>
-            <form onSubmit={handlesubmit}>
+            <form onSubmit={handleSubmit}>
             <TextField 
                 id="outlined-basic" 
                 label="Email" 
