@@ -138,7 +138,7 @@ function Webcode(props){
           Answer
         </Typography>
         <Typography variant="h5" component="div">
-       <TextField style={{width:"150px"}}></TextField>
+       <TextField style={{width:"250px"}}></TextField>
         </Typography>
         </CardContent>
       
