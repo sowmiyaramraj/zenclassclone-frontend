@@ -8,7 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Rank from "../images/rank.jpg"
 import axios from "axios";
+import jwt from "jsonwebtoken";
+import {useNavigate} from "react-router-dom";
+
 function Leadership(){
+  const navigate=useNavigate();
   const [leadership,setLeadership]=useState([]);
   useEffect(()=>{
   async function getData()

@@ -8,8 +8,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from "axios";
+import jwt from "jsonwebtoken";
+import {useNavigate} from "react-router-dom";
 
 function Syllabus(){
+  const navigate=useNavigate();
   const[syllabus,setSyllabus]=useState([]);
 
    useEffect(()=>{

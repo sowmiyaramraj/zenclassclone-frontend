@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from '@mui/material/styles';
-import Sidenavmenubar from "../sidenavbar/sidenavmenubar";
+import {useNavigate} from "react-router-dom";
 
 const Div = styled('div')(({ theme }) => ({
   ...theme.typography.button,
@@ -10,6 +10,8 @@ const Div = styled('div')(({ theme }) => ({
 
 
 function Application(){
+    const navigate=useNavigate();
+
     return(
         <div>
             <div className="header">

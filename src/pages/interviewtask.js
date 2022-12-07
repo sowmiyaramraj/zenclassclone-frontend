@@ -14,6 +14,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import axios from "axios";
+import jwt from "jsonwebtoken";
+import {useNavigate} from "react-router-dom";
 
 const bull = (
   <Box
@@ -50,9 +52,11 @@ const Div = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(1),
   }));
-function Interviewtask(props){
 
-    const { window } = props;
+
+function Interviewtask(props){
+  const navigate=useNavigate();
+  const { window } = props;
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
