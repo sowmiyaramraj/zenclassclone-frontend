@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
@@ -6,7 +6,6 @@ import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { grey } from '@mui/material/colors';
 import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import TextField from '@mui/material/TextField';
@@ -14,8 +13,7 @@ import "./pagestyle.css";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Sidenavmenubar from "../sidenavbar/sidenavmenubar";
-
+import axios from "axios";
 
 const bull = (
   <Box
@@ -63,19 +61,23 @@ function Interviewtask(props){
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
-    const [card,setCard]= useState({
-        name:"sowmiya",
-        title:"stackoverflowclone",
-        feedback:"came poda seyoon loose ramraj looseee",
-        mark:"9",
-            });
+    const [interviewtask,setInterviewtask]= useState([]);
+
+    useEffect(()=>{
+      async function getData()
+      {
+          const response= await axios.get("http://localhost:3001/task/get");
+          setInterviewtask(response.data);    
+      }
+      getData();
+  },[]);
     return(
         <div>
-            <div className="header">
-           <Typography>Interviewtask</Typography>
+            <div style={{width:"200px",height:"50px",background:"purple"}} className="header">
+           <Typography style={{color:"white", fontSize:"27px"}}>Interview Task</Typography>
             </div>
-         
-      <Root>
+            {interviewtask.map((row)=>(
+      <Root  key={row.id}>
       <CssBaseline />
       <Global
         styles={{
@@ -86,8 +88,8 @@ function Interviewtask(props){
         }}
       />
       <Box sx={{ textAlign: 'center', pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}> {card.name}<br/>
-       {card.title}</Button>
+        <Button onClick={toggleDrawer(true)}> {row.interviewtaskname}<br/>
+       {row.interviewtasktitle}</Button>
       </Box>
       <SwipeableDrawer
         container={container}
@@ -113,7 +115,7 @@ function Interviewtask(props){
           }}
         >
           <Puller />
-          <Typography sx={{ p: 2, color: 'text.secondary' }}>hi
+          <Typography sx={{ p: 2, color: 'text.secondary' }}>
           </Typography>
         </StyledBox>
 
@@ -122,13 +124,13 @@ function Interviewtask(props){
         <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {card.name}
+          {row.interviewtaskname}
         </Typography>
         <Typography variant="h5" component="div">
-         {card.title}
+         {row.interviewtasktitle}
         </Typography>
-        <Button className="cmdbutton" style={{height: '30px', width : '100px'}} size="small" variant="contained">Task</Button>&nbsp;
-          <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{card.mark}</Button>
+        <Button className="cmdbutton" style={{height: '30px', width : '100px'}} size="small" variant="contained">Interviewtask</Button>&nbsp;
+          {/* <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{interviewtask.interviewtaskmark}</Button> */}
         <br/><br/>
         <Card style={{width:'800px', height:'100px'}} >
       <CardContent>
@@ -136,7 +138,7 @@ function Interviewtask(props){
           Answer
         </Typography>
         <Typography variant="h5" component="div">
-         {card.feedback}
+       <TextField style={{width:"150px"}}></TextField>
         </Typography>
         </CardContent>
       
@@ -147,7 +149,7 @@ function Interviewtask(props){
           Commend
         </Typography>
         <Typography variant="h5" component="div">
-         {card.feedback}
+         {row.interviewtaskfeedback}
         </Typography>
         </CardContent>
       
@@ -155,47 +157,10 @@ function Interviewtask(props){
       </CardContent>
       
     </Card>
-        {/* <TextField
-          id="outlined-read-only-input"
-          label="Answer"
-          style={{height: '50px', width : '400px'}}
-          
-          InputProps={{
-            readOnly: true,
-          }}
-        >{card.name} {card.topic} </TextField><br/>
-          <Button className="cmdbutton" style={{height: '30px', width : '100px'}} size="small" variant="contained">Task</Button>&nbsp;
-          <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{card.mark}</Button>
-        <br/> */}
-        {/* Answer */}
-        {/* <TextField
-          id="outlined-read-only-input"
-          label="Answer"
-          style={{height: '50px', width : '400px'}}
-          defaultValue={card.name}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <br/> */}
-        {/* Commends */}
-        {/* <TextField
-          id="outlined-read-only-input"
-          label="Commends"
-          style={{height: '50px', width : '400px'}}
-          defaultValue={card.feedback}
-          InputProps={{
-            readOnly: true,
-          }}
-        /> */}
-      
-      </SwipeableDrawer>
+       </SwipeableDrawer>
     </Root>
-
-
- 
-
-        </div>
+    ))}
+</div>
     );
 }
 

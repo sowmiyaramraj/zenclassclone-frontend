@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import { Global } from '@emotion/react';
@@ -15,7 +15,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Sidenavmenubar from "../sidenavbar/sidenavmenubar";
-
+import axios from "axios";
 
 const bull = (
   <Box
@@ -63,19 +63,25 @@ function Task(props){
 
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
-    const [card,setCard]= useState({
-        name:"sowmiya",
-        title:"stackoverflowclone",
-        feedback:"good",
-        mark:"9",
-            });
+    const [task,setTask]= useState([]);
+
+    
+   useEffect(()=>{
+    async function getData()
+    {
+        const response= await axios.get("http://localhost:3001/task/get");
+        setTask(response.data);    
+    }
+    getData();
+},[]);
+
     return(
         <div>
-            <div className="header">
-           <Typography>Task</Typography>
+            <div style={{width:"200px",height:"50px",background:"purple"}} className="header">
+           <Typography style={{color:"white", fontSize:"27px"}}>Task</Typography>
             </div>
-         
-      <Root>
+         {task.map((row)=>(
+      <Root key={row.id}>
       <CssBaseline />
       <Global
         styles={{
@@ -86,8 +92,8 @@ function Task(props){
         }}
       />
       <Box sx={{ textAlign: 'center', pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}> {card.name}<br/>
-       {card.title}</Button>
+        <Button onClick={toggleDrawer(true)}> {row.taskname}<br/>
+       {row.tasktitle}</Button>
       </Box>
       <SwipeableDrawer
         container={container}
@@ -122,24 +128,15 @@ function Task(props){
         <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {card.name}
+          {row.taskname}
         </Typography>
         <Typography variant="h5" component="div">
-         {card.title}
+         {row.tasktitle}
         </Typography>
         <Button className="cmdbutton" style={{height: '30px', width : '100px'}} size="small" variant="contained">Task</Button>&nbsp;
-          <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{card.mark}</Button>
+          {/* <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{task.mark}</Button> */}
         <br/><br/>
-        <Card style={{width:'800px', height:'100px'}} >
-      <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Answer
-        </Typography>
-        <Typography variant="h5" component="div">
-         {card.feedback}
-        </Typography>
-        </CardContent>
-      
+        <Card style={{width:'800px', height:'100px'}} >         
       </Card>
       <Card style={{width:'800px', height:'100px'}}>
       <CardContent>
@@ -147,7 +144,7 @@ function Task(props){
           Commend
         </Typography>
         <Typography variant="h5" component="div">
-         {card.feedback}
+         {row.taskfeedback}
         </Typography>
         </CardContent>
       
@@ -155,46 +152,9 @@ function Task(props){
       </CardContent>
       
     </Card>
-        {/* <TextField
-          id="outlined-read-only-input"
-          label="Answer"
-          style={{height: '50px', width : '400px'}}
-          
-          InputProps={{
-            readOnly: true,
-          }}
-        >{card.name} {card.topic} </TextField><br/>
-          <Button className="cmdbutton" style={{height: '30px', width : '100px'}} size="small" variant="contained">Task</Button>&nbsp;
-          <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{card.mark}</Button>
-        <br/> */}
-        {/* Answer */}
-        {/* <TextField
-          id="outlined-read-only-input"
-          label="Answer"
-          style={{height: '50px', width : '400px'}}
-          defaultValue={card.name}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <br/> */}
-        {/* Commends */}
-        {/* <TextField
-          id="outlined-read-only-input"
-          label="Commends"
-          style={{height: '50px', width : '400px'}}
-          defaultValue={card.feedback}
-          InputProps={{
-            readOnly: true,
-          }}
-        /> */}
-      
-      </SwipeableDrawer>
+    </SwipeableDrawer>
     </Root>
-
-
- 
-
+))}
         </div>
     );
 }
