@@ -136,7 +136,15 @@ function Task(props){
         <Button className="cmdbutton" style={{height: '30px', width : '100px'}} size="small" variant="contained">Task</Button>&nbsp;
           {/* <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{task.mark}</Button> */}
         <br/><br/>
-        <Card style={{width:'800px', height:'100px'}} >         
+        <Card style={{width:'800px', height:'100px'}} > 
+        <CardContent>
+<Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+    Answer
+  </Typography>
+  <Typography variant="h5" component="div">
+   <TextField lable="Enter your deployed URL" style={{width:"150px"}}></TextField>
+  </Typography>
+  </CardContent>        
       </Card>
       <Card style={{width:'800px', height:'100px'}}>
       <CardContent>

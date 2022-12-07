@@ -133,14 +133,14 @@ function Interviewtask(props){
           {/* <Button className="cmdbutton"  style={{height: '30px', width : '100px'}} size="small" variant="outlined">{interviewtask.interviewtaskmark}</Button> */}
         <br/><br/>
         <Card style={{width:'800px', height:'100px'}} >
-      <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Answer
-        </Typography>
-        <Typography variant="h5" component="div">
-       <TextField style={{width:"150px"}}></TextField>
-        </Typography>
-        </CardContent>
+        <CardContent>
+<Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+    Answer
+  </Typography>
+  <Typography variant="h5" component="div">
+   <TextField lable="Enter your deployed URL" style={{width:"150px"}}></TextField>
+  </Typography>
+  </CardContent>
       
       </Card>
       <Card style={{width:'800px', height:'100px'}}>
