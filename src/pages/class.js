@@ -51,7 +51,7 @@ function Class(){
           {classdata.map((row) => (
 
           <div key={row.id}>
-            <Button style={{ background:"rgb(129, 43, 129)",color:"white"}} href={row.roadmapclasslink}> {row.roadmap} </Button> 
+            <Button style={{ background:"rgb(129, 43, 129)",color:"white"}} href={row.roadmapclasslink}> {row.roadmapday} </Button> 
           </div> 
           ))}
           <hr/>
@@ -68,7 +68,7 @@ function Class(){
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
          11/12/2022 
         </Typography>
-        <Button style={{ background:"rgb(129, 43, 129)",color:"white"}} href={row.additionalclasslink}> {row.additionalclass} </Button> 
+        <Button style={{ background:"rgb(129, 43, 129)",color:"white"}} href={row.additionalclasslink}> {row.additionalclassday} </Button> 
 
       </CardContent>
     </Card>

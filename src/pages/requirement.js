@@ -19,15 +19,15 @@ function Requirement(){
        const handleSubmit=async(formdata, { resetForm })=>{
         console.log(formdata);
 
-        // const response= await axios.post("http://localhost:3001/requirement/create",
+        const response= await axios.post("http://localhost:3001/requirement/create",
        
-        // {
-        //  name: formdata.name,
-        //  githuburl: formdata.git,
-        //  portfoliourl: formdata.portfolio,
-        //  resumeurl: formdata.resume,
-        // });
-        // setUserStateData([...userStateData,response.data]);
+        {
+         name: formdata.name,
+         githuburl: formdata.git,
+         portfoliourl: formdata.portfolio,
+         resumeurl: formdata.resume,
+        });
+        setUserStateData([...userStateData,response.data]);
         resetForm();
        };
     return(

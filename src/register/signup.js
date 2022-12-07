@@ -55,6 +55,7 @@ function Signup(){
          confirmpassword: formdata.confirmpassword,
          gender: formdata.gender,
          mobilenumber: formdata.mobilenumber,
+         batch:"b38 wd tamil",
         });
         setUserStateData([...userStateData,response.data]);
         navigate("/tab");
